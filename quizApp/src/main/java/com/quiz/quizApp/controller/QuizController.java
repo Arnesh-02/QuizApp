@@ -1,22 +1,21 @@
 package com.quiz.quizApp.controller;
 
 
-import com.quiz.quizApp.service.QuestionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import com.quiz.quizApp.model.Quiz;
+import com.quiz.quizApp.service.QuizService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("questions")
+@RequestMapping("/quizapp/quiz")
 public class QuizController {
 
-    QuestionService serv=new QuestionService();
+    @Autowired
+    QuizService quizService;
 
-    @GetMapping("/all")
-    public List<String> getAllQuestions(){
-        return serv.getAllQuestions();
+    @PostMapping("new")
+    public String createQuiz(@RequestParam String category,@RequestParam String title,@RequestParam Integer no){
+        return quizService.createQuiz(category,title,no);
     }
 
 }
